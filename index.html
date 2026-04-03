@@ -1,1 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>League of Lombra</title>
+  <meta name="description" content="League of Lombra — Winners of Desornes" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand-block">
+        <p class="brand-kicker">Winners of Desornes</p>
+        <h1>League of Lombra</h1>
+        <p class="brand-subtitle">
+          Montador de partidas para ARAM Desordem personalizada.
+        </p>
+      </div>
 
+      <button class="ghost-button" id="adminToggleBtn" type="button">
+        Entrar
+      </button>
+    </header>
+
+    <main class="main-layout">
+      <section class="panel hero-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Partida</p>
+            <h2>Montar confronto</h2>
+          </div>
+          <span class="mode-badge">Desordem (Personalizada)</span>
+        </div>
+
+        <div class="setup-grid">
+          <div class="field-group">
+            <label for="matchFormat">Formato</label>
+            <select id="matchFormat">
+              <option value="2">2x2</option>
+              <option value="3">3x3</option>
+              <option value="4">4x4</option>
+              <option value="5" selected>5x5</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Modo de montagem</label>
+            <div class="toggle-group" id="buildModeGroup">
+              <button class="toggle-button active" type="button" data-mode="random">
+                Sorteio
+              </button>
+              <button class="toggle-button" type="button" data-mode="manual">
+                Manual
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel players-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Players</p>
+            <h2>Selecionar jogadores</h2>
+          </div>
+        </div>
+
+        <div class="players-toolbar">
+          <div class="field-group grow">
+            <label for="playerSearch">Buscar player</label>
+            <input
+              type="text"
+              id="playerSearch"
+              placeholder="Buscar por nome no LoL ou vulgo"
+            />
+          </div>
+
+          <button class="secondary-button" id="newPlayerBtn" type="button">
+            + Novo player
+          </button>
+        </div>
+
+        <div class="players-list-wrap">
+          <div class="empty-state" id="playersEmptyState">
+            Nenhum player cadastrado ainda.
+          </div>
+
+          <div class="players-list" id="playersList"></div>
+        </div>
+      </section>
+
+      <section class="panel match-builder-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Confronto</p>
+            <h2>Time esquerdo vs time direito</h2>
+          </div>
+        </div>
+
+        <div class="teams-grid">
+          <article class="team-card" id="leftTeamCard">
+            <div class="team-top">
+              <label class="team-name-label" for="leftTeamName">Nome do time</label>
+              <input
+                type="text"
+                id="leftTeamName"
+                class="team-name-input"
+                value="Time 1"
+                placeholder="Nome do time esquerdo"
+              />
+            </div>
+
+            <div class="team-list" id="leftTeamList">
+              <div class="empty-state">Nenhum jogador neste time ainda.</div>
+            </div>
+
+            <button class="win-button" type="button" id="leftWinBtn">
+              Time da esquerda venceu
+            </button>
+          </article>
+
+          <div class="versus-mark">
+            <span>VS</span>
+          </div>
+
+          <article class="team-card" id="rightTeamCard">
+            <div class="team-top">
+              <label class="team-name-label" for="rightTeamName">Nome do time</label>
+              <input
+                type="text"
+                id="rightTeamName"
+                class="team-name-input"
+                value="Time 2"
+                placeholder="Nome do time direito"
+              />
+            </div>
+
+            <div class="team-list" id="rightTeamList">
+              <div class="empty-state">Nenhum jogador neste time ainda.</div>
+            </div>
+
+            <button class="win-button" type="button" id="rightWinBtn">
+              Time da direita venceu
+            </button>
+          </article>
+        </div>
+
+        <div class="builder-actions">
+          <button class="primary-button" id="generateTeamsBtn" type="button">
+            Sortear times
+          </button>
+
+          <button class="secondary-button" id="resetTeamsBtn" type="button">
+            Limpar confronto
+          </button>
+        </div>
+      </section>
+
+      <section class="panel admin-panel hidden" id="adminPanel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Admin</p>
+            <h2>Registro da partida</h2>
+          </div>
+        </div>
+
+        <div class="admin-note">
+          Na V1, o cadastro final do histórico será feito manualmente pelo GitHub.
+        </div>
+
+        <div class="admin-grid">
+          <div class="field-group">
+            <label for="winnerPreview">Vencedor selecionado</label>
+            <input
+              type="text"
+              id="winnerPreview"
+              placeholder="Ainda não definido"
+              readonly
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="mainPrintName">Print principal</label>
+            <input
+              type="text"
+              id="mainPrintName"
+              placeholder="Ex.: partida-01.png"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="extraAttachments">Anexos extras</label>
+            <textarea
+              id="extraAttachments"
+              rows="4"
+              placeholder="Ex.: print-2.png, draft-picks.png"
+            ></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="matchNotes">Observações</label>
+            <textarea
+              id="matchNotes"
+              rows="4"
+              placeholder="Anotações da partida"
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Histórico</p>
+            <h2>Partidas registradas</h2>
+          </div>
+        </div>
+
+        <div class="history-list" id="historyList">
+          <div class="empty-state">
+            Nenhuma partida registrada ainda.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="playerModal">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Novo player</p>
+          <h3>Cadastrar jogador</h3>
+        </div>
+
+        <button class="icon-button" id="closeModalBtn" type="button">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="field-group">
+          <label for="playerLolName">Nome no LoL</label>
+          <input
+            type="text"
+            id="playerLolName"
+            placeholder="Ex.: MidDiff123"
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="playerNickname">Vulgo</label>
+          <input
+            type="text"
+            id="playerNickname"
+            placeholder="Ex.: fumacinha"
+          />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="secondary-button" id="cancelModalBtn" type="button">
+          Cancelar
+        </button>
+        <button class="primary-button" id="savePlayerBtn" type="button">
+          Salvar player
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
